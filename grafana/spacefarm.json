@@ -1,0 +1,1028 @@
+{
+  "uid": "spacefarm-2080",
+  "title": "SpaceFarm 2080 · Capteurs",
+  "schemaVersion": 39,
+  "version": 1,
+  "tags": [
+    "SpaceFarm",
+    "FoodTech"
+  ],
+  "editable": false,
+  "timezone": "browser",
+  "refresh": "30s",
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "description": "Mesures de l'API SpaceFarm. Historique des six dernières heures ; commandes sur le centre de contrôle.",
+  "links": [
+    {
+      "title": "Centre de contrôle · commander la LED",
+      "type": "link",
+      "url": "http://192.168.41.88:8000/?source=api",
+      "targetBlank": true
+    }
+  ],
+  "timepicker": {
+    "refresh_intervals": [
+      "15s",
+      "30s",
+      "1m",
+      "5m"
+    ]
+  },
+  "panels": [
+    {
+      "id": 1,
+      "title": "Température",
+      "type": "stat",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 6,
+        "h": 5
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "spacefarm-api"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "spacefarm-api"
+          },
+          "type": "json",
+          "source": "url",
+          "url": "http://127.0.0.1:8000/api/state",
+          "url_options": {
+            "method": "GET"
+          },
+          "parser": "jq-backend",
+          "root_selector": "[{value: .measurements.temperature.value}]",
+          "format": "table",
+          "columns": [
+            {
+              "selector": "value",
+              "text": "Température",
+              "type": "number"
+            }
+          ]
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "celsius",
+          "decimals": 1,
+          "noValue": "Indisponible",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [
+            {
+              "type": "special",
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "Indisponible",
+                  "color": "orange"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      },
+      "description": "Valeur actuelle. Indisponible si invalide ou sans mesure depuis 120 secondes."
+    },
+    {
+      "id": 2,
+      "title": "Humidité de l'air",
+      "type": "stat",
+      "gridPos": {
+        "x": 6,
+        "y": 0,
+        "w": 6,
+        "h": 5
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "spacefarm-api"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "spacefarm-api"
+          },
+          "type": "json",
+          "source": "url",
+          "url": "http://127.0.0.1:8000/api/state",
+          "url_options": {
+            "method": "GET"
+          },
+          "parser": "jq-backend",
+          "root_selector": "[{value: .measurements.humidity.value}]",
+          "format": "table",
+          "columns": [
+            {
+              "selector": "value",
+              "text": "Humidité de l'air",
+              "type": "number"
+            }
+          ]
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 1,
+          "noValue": "Indisponible",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "min": 0,
+          "max": 100,
+          "mappings": [
+            {
+              "type": "special",
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "Indisponible",
+                  "color": "orange"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      },
+      "description": "Valeur actuelle. Indisponible si invalide ou sans mesure depuis 120 secondes."
+    },
+    {
+      "id": 3,
+      "title": "Luminosité relative",
+      "type": "stat",
+      "gridPos": {
+        "x": 12,
+        "y": 0,
+        "w": 6,
+        "h": 5
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "spacefarm-api"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "spacefarm-api"
+          },
+          "type": "json",
+          "source": "url",
+          "url": "http://127.0.0.1:8000/api/state",
+          "url_options": {
+            "method": "GET"
+          },
+          "parser": "jq-backend",
+          "root_selector": "[{value: .measurements.light.value}]",
+          "format": "table",
+          "columns": [
+            {
+              "selector": "value",
+              "text": "Luminosité relative",
+              "type": "number"
+            }
+          ]
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 1,
+          "noValue": "Indisponible",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "min": 0,
+          "max": 100,
+          "mappings": [
+            {
+              "type": "special",
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "Indisponible",
+                  "color": "orange"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      },
+      "description": "Valeur actuelle. Indisponible si invalide ou sans mesure depuis 120 secondes. Pourcentage relatif étalonné, pas une mesure en lux."
+    },
+    {
+      "id": 4,
+      "title": "Niveau d'eau estimé",
+      "type": "stat",
+      "gridPos": {
+        "x": 18,
+        "y": 0,
+        "w": 6,
+        "h": 5
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "spacefarm-api"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "spacefarm-api"
+          },
+          "type": "json",
+          "source": "url",
+          "url": "http://127.0.0.1:8000/api/state",
+          "url_options": {
+            "method": "GET"
+          },
+          "parser": "jq-backend",
+          "root_selector": "[{value: .measurements.water.value}]",
+          "format": "table",
+          "columns": [
+            {
+              "selector": "value",
+              "text": "Niveau d'eau estimé",
+              "type": "number"
+            }
+          ]
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 1,
+          "noValue": "Indisponible",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "min": 0,
+          "max": 100,
+          "mappings": [
+            {
+              "type": "special",
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "Indisponible",
+                  "color": "orange"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      },
+      "description": "Valeur actuelle. Indisponible si invalide ou sans mesure depuis 120 secondes. Estimation de la sonde ; calibration à vérifier après son déplacement."
+    },
+    {
+      "id": 5,
+      "title": "Température — historique",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 0,
+        "y": 9,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "spacefarm-api"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "spacefarm-api"
+          },
+          "type": "json",
+          "source": "url",
+          "url": "http://127.0.0.1:8000/api/state",
+          "url_options": {
+            "method": "GET"
+          },
+          "parser": "jq-backend",
+          "root_selector": ".history",
+          "format": "timeseries",
+          "columns": [
+            {
+              "selector": "timestamp",
+              "text": "Heure",
+              "type": "timestamp_epoch"
+            },
+            {
+              "selector": "temperature",
+              "text": "Température",
+              "type": "number"
+            }
+          ]
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "celsius",
+          "decimals": 1,
+          "noValue": "Indisponible",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 2,
+            "fillOpacity": 12,
+            "spanNulls": false,
+            "showPoints": "never",
+            "axisLabel": ""
+          },
+          "mappings": [
+            {
+              "type": "special",
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "Indisponible",
+                  "color": "orange"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "description": "Historique fourni par l'API : six dernières heures."
+    },
+    {
+      "id": 6,
+      "title": "Humidité de l'air — historique",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 12,
+        "y": 9,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "spacefarm-api"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "spacefarm-api"
+          },
+          "type": "json",
+          "source": "url",
+          "url": "http://127.0.0.1:8000/api/state",
+          "url_options": {
+            "method": "GET"
+          },
+          "parser": "jq-backend",
+          "root_selector": ".history",
+          "format": "timeseries",
+          "columns": [
+            {
+              "selector": "timestamp",
+              "text": "Heure",
+              "type": "timestamp_epoch"
+            },
+            {
+              "selector": "humidity",
+              "text": "Humidité de l'air",
+              "type": "number"
+            }
+          ]
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 1,
+          "noValue": "Indisponible",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "min": 0,
+          "max": 100,
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 2,
+            "fillOpacity": 12,
+            "spanNulls": false,
+            "showPoints": "never",
+            "axisLabel": ""
+          },
+          "mappings": [
+            {
+              "type": "special",
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "Indisponible",
+                  "color": "orange"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "description": "Historique fourni par l'API : six dernières heures."
+    },
+    {
+      "id": 7,
+      "title": "Luminosité relative — historique",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 0,
+        "y": 17,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "spacefarm-api"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "spacefarm-api"
+          },
+          "type": "json",
+          "source": "url",
+          "url": "http://127.0.0.1:8000/api/state",
+          "url_options": {
+            "method": "GET"
+          },
+          "parser": "jq-backend",
+          "root_selector": ".history",
+          "format": "timeseries",
+          "columns": [
+            {
+              "selector": "timestamp",
+              "text": "Heure",
+              "type": "timestamp_epoch"
+            },
+            {
+              "selector": "light",
+              "text": "Luminosité relative",
+              "type": "number"
+            }
+          ]
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 1,
+          "noValue": "Indisponible",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "min": 0,
+          "max": 100,
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 2,
+            "fillOpacity": 12,
+            "spanNulls": false,
+            "showPoints": "never",
+            "axisLabel": ""
+          },
+          "mappings": [
+            {
+              "type": "special",
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "Indisponible",
+                  "color": "orange"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "description": "Historique fourni par l'API : six dernières heures."
+    },
+    {
+      "id": 8,
+      "title": "Niveau d'eau estimé — historique",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 12,
+        "y": 17,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "spacefarm-api"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "spacefarm-api"
+          },
+          "type": "json",
+          "source": "url",
+          "url": "http://127.0.0.1:8000/api/state",
+          "url_options": {
+            "method": "GET"
+          },
+          "parser": "jq-backend",
+          "root_selector": ".history",
+          "format": "timeseries",
+          "columns": [
+            {
+              "selector": "timestamp",
+              "text": "Heure",
+              "type": "timestamp_epoch"
+            },
+            {
+              "selector": "water",
+              "text": "Niveau d'eau estimé",
+              "type": "number"
+            }
+          ]
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 1,
+          "noValue": "Indisponible",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "min": 0,
+          "max": 100,
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 2,
+            "fillOpacity": 12,
+            "spanNulls": false,
+            "showPoints": "never",
+            "axisLabel": ""
+          },
+          "mappings": [
+            {
+              "type": "special",
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "Indisponible",
+                  "color": "orange"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "description": "Historique fourni par l'API : six dernières heures."
+    },
+    {
+      "id": 9,
+      "title": "Éclairage · état confirmé",
+      "type": "stat",
+      "gridPos": {
+        "x": 0,
+        "y": 5,
+        "w": 6,
+        "h": 4
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "spacefarm-api"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "spacefarm-api"
+          },
+          "type": "json",
+          "source": "url",
+          "url": "http://127.0.0.1:8000/api/state",
+          "url_options": {
+            "method": "GET"
+          },
+          "parser": "jq-backend",
+          "root_selector": "[{value: (if .lighting == null then null elif .lighting then 1 else 0 end)}]",
+          "format": "table",
+          "columns": [
+            {
+              "selector": "value",
+              "text": "LED",
+              "type": "number"
+            }
+          ]
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 1,
+          "noValue": "Indisponible",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "Éteint",
+                  "color": "gray"
+                },
+                "1": {
+                  "text": "Allumé",
+                  "color": "green"
+                }
+              }
+            },
+            {
+              "type": "special",
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "Indisponible",
+                  "color": "orange"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      }
+    },
+    {
+      "id": 10,
+      "title": "Automatisation",
+      "type": "stat",
+      "gridPos": {
+        "x": 6,
+        "y": 5,
+        "w": 6,
+        "h": 4
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "spacefarm-api"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "spacefarm-api"
+          },
+          "type": "json",
+          "source": "url",
+          "url": "http://127.0.0.1:8000/api/state",
+          "url_options": {
+            "method": "GET"
+          },
+          "parser": "jq-backend",
+          "root_selector": "[{value: .mode}]",
+          "format": "table",
+          "columns": [
+            {
+              "selector": "value",
+              "text": "Mode",
+              "type": "string"
+            }
+          ]
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 1,
+          "noValue": "Indisponible",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "automatic": {
+                  "text": "Automatique",
+                  "color": "green"
+                },
+                "manual": {
+                  "text": "Manuel",
+                  "color": "blue"
+                },
+                "unconfigured": {
+                  "text": "Capteurs hors ligne",
+                  "color": "orange"
+                }
+              }
+            },
+            {
+              "type": "special",
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "Indisponible",
+                  "color": "orange"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "/.*/",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      }
+    },
+    {
+      "id": 11,
+      "title": "Raspberry Pi · température CPU",
+      "type": "stat",
+      "gridPos": {
+        "x": 12,
+        "y": 5,
+        "w": 6,
+        "h": 4
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "spacefarm-api"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "spacefarm-api"
+          },
+          "type": "json",
+          "source": "url",
+          "url": "http://127.0.0.1:8000/api/state",
+          "url_options": {
+            "method": "GET"
+          },
+          "parser": "jq-backend",
+          "root_selector": "[{value: .system.cpuTemperature}]",
+          "format": "table",
+          "columns": [
+            {
+              "selector": "value",
+              "text": "CPU",
+              "type": "number"
+            }
+          ]
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "celsius",
+          "decimals": 1,
+          "noValue": "Indisponible",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [
+            {
+              "type": "special",
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "Indisponible",
+                  "color": "orange"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      }
+    },
+    {
+      "id": 12,
+      "title": "Raspberry Pi · mémoire utilisée",
+      "type": "stat",
+      "gridPos": {
+        "x": 18,
+        "y": 5,
+        "w": 6,
+        "h": 4
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "spacefarm-api"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "spacefarm-api"
+          },
+          "type": "json",
+          "source": "url",
+          "url": "http://127.0.0.1:8000/api/state",
+          "url_options": {
+            "method": "GET"
+          },
+          "parser": "jq-backend",
+          "root_selector": "[{value: .system.memoryUsedPercent}]",
+          "format": "table",
+          "columns": [
+            {
+              "selector": "value",
+              "text": "RAM",
+              "type": "number"
+            }
+          ]
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 1,
+          "noValue": "Indisponible",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "min": 0,
+          "max": 100,
+          "mappings": [
+            {
+              "type": "special",
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "Indisponible",
+                  "color": "orange"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      }
+    }
+  ]
+}

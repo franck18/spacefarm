@@ -1,0 +1,29 @@
+[Unit]
+Description=SpaceFarm dashboard et API de collecte des capteurs
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=pi
+Group=pi
+WorkingDirectory=/home/pi/spacefarm
+# StateDirectory cree /var/lib/spacefarm et le rend inscriptible malgre
+# ProtectSystem=strict et ProtectHome=read-only : la base ne peut pas vivre
+# dans /home/pi, qui reste monte en lecture seule pour ce service.
+StateDirectory=spacefarm
+Environment=SPACEFARM_DB=/var/lib/spacefarm/spacefarm.db
+# Jeton partage exige des capteurs. Laisser vide pour ouvrir l'ingestion a tous.
+Environment=SPACEFARM_TOKEN=
+# 0.0.0.0 : joignable par le WiFi (192.168.41.88) et par le cable Ethernet direct.
+ExecStart=/usr/bin/python3 -B /home/pi/spacefarm/backend/server.py --host 0.0.0.0 --port 8000
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ProtectKernelTunables=true
+
+[Install]
+WantedBy=multi-user.target

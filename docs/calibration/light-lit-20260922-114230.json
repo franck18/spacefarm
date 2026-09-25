@@ -1,0 +1,57 @@
+{
+  "sensor": "spacefarm-yun",
+  "metric": "light_raw",
+  "condition": "usual_lighting_by_user",
+  "samples": [
+    {
+      "metric": "light_raw",
+      "value": 405.0,
+      "unit": "ADC",
+      "quality": "ok",
+      "observedAt": "2026-09-22T09:42:04Z",
+      "sensor": "spacefarm-yun",
+      "pillar": "foodtech"
+    },
+    {
+      "metric": "light_raw",
+      "value": 405.0,
+      "unit": "ADC",
+      "quality": "ok",
+      "observedAt": "2026-09-22T09:42:09Z",
+      "sensor": "spacefarm-yun",
+      "pillar": "foodtech"
+    },
+    {
+      "metric": "light_raw",
+      "value": 401.0,
+      "unit": "ADC",
+      "quality": "ok",
+      "observedAt": "2026-09-22T09:42:14Z",
+      "sensor": "spacefarm-yun",
+      "pillar": "foodtech"
+    },
+    {
+      "metric": "light_raw",
+      "value": 401.0,
+      "unit": "ADC",
+      "quality": "ok",
+      "observedAt": "2026-09-22T09:42:19Z",
+      "sensor": "spacefarm-yun",
+      "pillar": "foodtech"
+    },
+    {
+      "metric": "light_raw",
+      "value": 441.0,
+      "unit": "ADC",
+      "quality": "ok",
+      "observedAt": "2026-09-22T09:42:29Z",
+      "sensor": "spacefarm-yun",
+      "pillar": "foodtech"
+    }
+  ],
+  "mean": 410.6,
+  "min": 401.0,
+  "max": 441.0,
+  "status": "lit_reference_candidate",
+  "recordedAt": "2026-09-22T09:42:30.9255033+00:00"
+}

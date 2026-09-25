@@ -1,0 +1,297 @@
+{
+  "apiVersion": 1,
+  "groups": [
+    {
+      "orgId": 1,
+      "name": "SpaceFarm",
+      "folder": "SpaceFarm",
+      "interval": "60s",
+      "rules": [
+        {
+          "uid": "spacefarm-water-low",
+          "title": "SpaceFarm · Réservoir faible",
+          "condition": "B",
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "spacefarm-api",
+              "relativeTimeRange": {
+                "from": 600,
+                "to": 0
+              },
+              "model": {
+                "refId": "A",
+                "type": "json",
+                "source": "url",
+                "parser": "jq-backend",
+                "url": "http://127.0.0.1:8000/api/state",
+                "url_options": {
+                  "method": "GET"
+                },
+                "root_selector": "[{value: (.measurements.water.value as $v | if $v == null then 0 elif $v < 20 then 1 else 0 end)}]",
+                "format": "table",
+                "columns": [
+                  {
+                    "selector": "value",
+                    "text": "value",
+                    "type": "number"
+                  }
+                ],
+                "datasource": {
+                  "type": "yesoreyeram-infinity-datasource",
+                  "uid": "spacefarm-api"
+                },
+                "intervalMs": 60000,
+                "maxDataPoints": 1
+              }
+            },
+            {
+              "refId": "B",
+              "datasourceUid": "__expr__",
+              "relativeTimeRange": {
+                "from": 0,
+                "to": 0
+              },
+              "model": {
+                "refId": "B",
+                "type": "classic_conditions",
+                "datasource": {
+                  "type": "__expr__",
+                  "uid": "__expr__"
+                },
+                "conditions": [
+                  {
+                    "type": "query",
+                    "query": {
+                      "params": [
+                        "A"
+                      ]
+                    },
+                    "reducer": {
+                      "type": "last",
+                      "params": []
+                    },
+                    "evaluator": {
+                      "type": "gt",
+                      "params": [
+                        0.5
+                      ]
+                    },
+                    "operator": {
+                      "type": "and"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "for": "5m",
+          "noDataState": "Alerting",
+          "execErrState": "Alerting",
+          "isPaused": true,
+          "labels": {
+            "project": "spacefarm"
+          },
+          "annotations": {
+            "summary": "Niveau d'eau estimé inférieur à 20 % depuis cinq minutes. Vérifier la sonde et le réservoir."
+          }
+        },
+        {
+          "uid": "spacefarm-temperature",
+          "title": "SpaceFarm · Température anormale",
+          "condition": "B",
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "spacefarm-api",
+              "relativeTimeRange": {
+                "from": 600,
+                "to": 0
+              },
+              "model": {
+                "refId": "A",
+                "type": "json",
+                "source": "url",
+                "parser": "jq-backend",
+                "url": "http://127.0.0.1:8000/api/state",
+                "url_options": {
+                  "method": "GET"
+                },
+                "root_selector": "[{value: (.measurements.temperature.value as $v | if $v == null then 0 elif $v < 18 or $v > 30 then 1 else 0 end)}]",
+                "format": "table",
+                "columns": [
+                  {
+                    "selector": "value",
+                    "text": "value",
+                    "type": "number"
+                  }
+                ],
+                "datasource": {
+                  "type": "yesoreyeram-infinity-datasource",
+                  "uid": "spacefarm-api"
+                },
+                "intervalMs": 60000,
+                "maxDataPoints": 1
+              }
+            },
+            {
+              "refId": "B",
+              "datasourceUid": "__expr__",
+              "relativeTimeRange": {
+                "from": 0,
+                "to": 0
+              },
+              "model": {
+                "refId": "B",
+                "type": "classic_conditions",
+                "datasource": {
+                  "type": "__expr__",
+                  "uid": "__expr__"
+                },
+                "conditions": [
+                  {
+                    "type": "query",
+                    "query": {
+                      "params": [
+                        "A"
+                      ]
+                    },
+                    "reducer": {
+                      "type": "last",
+                      "params": []
+                    },
+                    "evaluator": {
+                      "type": "gt",
+                      "params": [
+                        0.5
+                      ]
+                    },
+                    "operator": {
+                      "type": "and"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "for": "5m",
+          "noDataState": "Alerting",
+          "execErrState": "Alerting",
+          "isPaused": true,
+          "labels": {
+            "project": "spacefarm"
+          },
+          "annotations": {
+            "summary": "Température hors de la plage 18–30 °C depuis cinq minutes."
+          }
+        },
+        {
+          "uid": "spacefarm-sensor-missing",
+          "title": "SpaceFarm · Mesure indisponible",
+          "condition": "B",
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "spacefarm-api",
+              "relativeTimeRange": {
+                "from": 600,
+                "to": 0
+              },
+              "model": {
+                "refId": "A",
+                "type": "json",
+                "source": "url",
+                "parser": "jq-backend",
+                "url": "http://127.0.0.1:8000/api/state",
+                "url_options": {
+                  "method": "GET"
+                },
+                "root_selector": "[{value: ([.measurements.temperature.value, .measurements.humidity.value, .measurements.light.value, .measurements.water.value] | if any(. == null) then 1 else 0 end)}]",
+                "format": "table",
+                "columns": [
+                  {
+                    "selector": "value",
+                    "text": "value",
+                    "type": "number"
+                  }
+                ],
+                "datasource": {
+                  "type": "yesoreyeram-infinity-datasource",
+                  "uid": "spacefarm-api"
+                },
+                "intervalMs": 60000,
+                "maxDataPoints": 1
+              }
+            },
+            {
+              "refId": "B",
+              "datasourceUid": "__expr__",
+              "relativeTimeRange": {
+                "from": 0,
+                "to": 0
+              },
+              "model": {
+                "refId": "B",
+                "type": "classic_conditions",
+                "datasource": {
+                  "type": "__expr__",
+                  "uid": "__expr__"
+                },
+                "conditions": [
+                  {
+                    "type": "query",
+                    "query": {
+                      "params": [
+                        "A"
+                      ]
+                    },
+                    "reducer": {
+                      "type": "last",
+                      "params": []
+                    },
+                    "evaluator": {
+                      "type": "gt",
+                      "params": [
+                        0.5
+                      ]
+                    },
+                    "operator": {
+                      "type": "and"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "for": "2m",
+          "noDataState": "Alerting",
+          "execErrState": "Alerting",
+          "isPaused": true,
+          "labels": {
+            "project": "spacefarm"
+          },
+          "annotations": {
+            "summary": "Au moins une mesure est invalide ou périmée. Vérifier la Yún, les capteurs et leur connexion."
+          }
+        }
+      ]
+    }
+  ],
+  "contactPoints": [
+    {
+      "orgId": 1,
+      "name": "SpaceFarm e-mail",
+      "receivers": [
+        {
+          "uid": "spacefarm-email",
+          "type": "email",
+          "disableResolveMessage": false,
+          "settings": {
+            "addresses": "yusuke59160@gmail.com",
+            "singleEmail": true
+          }
+        }
+      ]
+    }
+  ]
+}

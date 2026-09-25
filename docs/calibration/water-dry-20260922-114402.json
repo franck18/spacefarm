@@ -1,0 +1,57 @@
+{
+  "sensor": "spacefarm-yun",
+  "metric": "water_raw",
+  "condition": "dry_by_user",
+  "samples": [
+    {
+      "metric": "water_raw",
+      "value": 174.0,
+      "unit": "ADC",
+      "quality": "ok",
+      "observedAt": "2026-09-22T09:43:34Z",
+      "sensor": "spacefarm-yun",
+      "pillar": "foodtech"
+    },
+    {
+      "metric": "water_raw",
+      "value": 153.0,
+      "unit": "ADC",
+      "quality": "ok",
+      "observedAt": "2026-09-22T09:43:39Z",
+      "sensor": "spacefarm-yun",
+      "pillar": "foodtech"
+    },
+    {
+      "metric": "water_raw",
+      "value": 60.0,
+      "unit": "ADC",
+      "quality": "ok",
+      "observedAt": "2026-09-22T09:43:49Z",
+      "sensor": "spacefarm-yun",
+      "pillar": "foodtech"
+    },
+    {
+      "metric": "water_raw",
+      "value": 150.0,
+      "unit": "ADC",
+      "quality": "ok",
+      "observedAt": "2026-09-22T09:43:55Z",
+      "sensor": "spacefarm-yun",
+      "pillar": "foodtech"
+    },
+    {
+      "metric": "water_raw",
+      "value": 156.0,
+      "unit": "ADC",
+      "quality": "ok",
+      "observedAt": "2026-09-22T09:43:59Z",
+      "sensor": "spacefarm-yun",
+      "pillar": "foodtech"
+    }
+  ],
+  "mean": 138.6,
+  "min": 60.0,
+  "max": 174.0,
+  "status": "dry_reference_candidate_awaiting_wet_measurements",
+  "recordedAt": "2026-09-22T09:44:02.7130088+00:00"
+}

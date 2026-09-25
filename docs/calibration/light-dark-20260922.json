@@ -1,0 +1,16 @@
+{
+  "sensor": "spacefarm-yun",
+  "metric": "light_raw",
+  "condition": "covered_by_user",
+  "unit": "ADC",
+  "samples": [
+    {"observedAt": "2026-09-22T09:40:24Z", "value": 0},
+    {"observedAt": "2026-09-22T09:40:29Z", "value": 0},
+    {"observedAt": "2026-09-22T09:40:39Z", "value": 0},
+    {"observedAt": "2026-09-22T09:40:44Z", "value": 0},
+    {"observedAt": "2026-09-22T09:40:49Z", "value": 0}
+  ],
+  "mean": 0,
+  "status": "provisional_dark_reference_awaiting_lit_measurements",
+  "note": "Confirmer une hausse sous eclairage avant de valider le fonctionnement. Aucune conversion en lux."
+}

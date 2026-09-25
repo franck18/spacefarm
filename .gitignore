@@ -1,0 +1,32 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.env
+.env.local
+*.log
+.DS_Store
+__pycache__/
+
+# Fichiers locaux, sauvegardes et archives générées.
+.codex/
+backups/
+tmp/
+*.zip
+~$*
+*.pyc
+*.db
+*.db-wal
+*.db-shm
+arduino/build/
+arduino/versions/
+arduino/.upload.lock
+
+# Identifiants : conservés uniquement sur les machines concernées.
+*app_password*
+*smtp-password*
+*admin-password*
+*_acces.txt
+*.pem
+*.key
+id_rsa*
+id_ed25519*
